@@ -1,84 +1,99 @@
 # Project_Modena
 
-# DHAIN Website
+## 🌐 DHAIN Website
 
-De officiële website van **DHAIN** — een AI-gedreven innovatiebureau binnen de jeugdzorgsector.  
-Deze repository bevat de volledige HTML-, CSS- en JS-bestanden voor de publieke bedrijfswebsite.
+De officiële website van **DHAIN** — een AI-gedreven innovatiebureau binnen de jeugdzorg en het sociaal domein.  
+Deze repository bevat de volledige bronbestanden voor de publieke bedrijfswebsite van DHAIN.
 
 ---
 
 ## 📄 Over dit project
 
-De site is ontwikkeld als lichte, statische website zonder afhankelijkheden van frameworks of backends.  
-Alle content draait in de browser en kan eenvoudig worden gehost bij elke standaard webhostingprovider (zoals mijn.host, Vercel of GitHub Pages).
+De site is gebouwd als lichte, statische website zonder frameworks of backend.  
+Alles draait client-side en kan eenvoudig worden gehost bij providers zoals Vercel, GitHub Pages of mijn.host.
 
-De focus ligt op:
-- Snelheid en toegankelijkheid
-- Privacy (geen cookies of tracking)
-- Heldere structuur en AVG-conforme inhoud
-- Strakke, moderne vormgeving afgestemd op de zorgsector
+Kenmerken:
+- Geen cookies of analytics
+- Volledig AVG-conform
+- Eén pagina met scroll-interacties
+- Moderne typografie en dark mode
+- Contactformulier dat e-mail opent via mailto (geen opslag)
 
 ---
 
 ## 📁 Structuur
 
-```
 /
-├── index.html          → hoofdpagina
-├── over.html           → pagina over DHAIN
-├── contact.html        → contactformulier (mailto)
-├── privacy.html        → privacyverklaring
-├── disclaimer.html     → disclaimer
-├── style.css           → hoofdopmaak (volledig custom)
-├── script.js           → interacties en jaarautomatisering footer
-└── images/             → logo, banner en voorbeeldafbeeldingen
-```
+├── index.html              → hoofdpagina (one-pager)
+├── css/
+│   └── styles.css          → alle opmaak (licht en dark mode)
+├── js/
+│   └── app.js              → animaties, loader, kleurmodus, contact
+├── legal/
+│   ├── privacy.html        → privacyverklaring
+│   └── disclaimer.html     → disclaimer
+└── public/
+    └── favicon.ico         → tabbladicoon
 
 ---
 
 ## ▶️ Preview in GitHub Codespaces
 
-1. Open de repo in **GitHub Codespaces**  
-   (knop **Code → Create codespace on main**)
+1. Open de repository in GitHub Codespaces  
+   (Code → Create codespace on main)
 
 2. Open een nieuwe terminal:  
-   - Menu: **Terminal → New Terminal**, of  
-   - Sneltoets: `Ctrl + ``  (accent-grave, links van de 1)
+   Terminal → New Terminal  
+   of gebruik `Ctrl + `` (accent-grave, links van de 1).
 
 3. Start een lokale webserver:
-   ```bash
    python3 -m http.server 3000
-   ```
 
-4. Codespaces toont automatisch een melding:
-   > “Your application is running on port 3000”
+4. Codespaces toont:
+   “Your application is running on port 3000”
 
    Klik **Open in Browser** om de website te bekijken.
 
-5. Zet de **port visibility** op *Private*, zodat alleen jij de site kunt zien.
+5. Optioneel: zet port visibility op Private zodat alleen jij de site kunt zien.
 
 ---
 
-## 🧩 Preview lokaal op je computer
+Troubleshooting
+--
+- Als de site ongestyled verschijnt: zorg dat je de site opent via de HTTP-server (bijv. http://localhost:3000) en niet direct met file://. Direct openen kan relatieve paden en browser security breken.
+- Wis de browsercache of open een incognito/privé-venster om verouderde CSS/JS te vermijden.
+- Voor snelle cache-busting tijdens ontwikkeling kun je in `index.html` tijdelijk de stylesheet link aanpassen naar bijvoorbeeld `css/styles.css?v=1.0` en de `v` verhogen na updates.
 
-Als je liever lokaal werkt:
 
-1. Installeer [Python](https://www.python.org/downloads/)  
-2. Open een terminal in de projectmap en typ:
-   ```bash
+## 💻 Lokaal draaien op je computer
+
+1. Installeer Python via https://www.python.org/downloads/  
+2. Open een terminal (of CTRL+SHIFT+C) in de projectmap en typ:
    python3 -m http.server 5500
-   ```
 3. Open je browser en ga naar:
-   ```
    http://localhost:5500
-   ```
 
-De website wordt lokaal geladen.
+De site draait nu lokaal, zonder afhankelijkheden.
 
 ---
 
-## 🛠️ Aanpassingen
+## 🧠 Werkwijze
 
-- Bewerk de HTML-bestanden direct in **VS Code** of **GitHub Codespaces**
-- Alle afbeeldingen staan in de map `/images/`
-- CSS-variabelen voor kleuren e
+- Pas teksten direct aan in index.html  
+- Voeg nieuwe secties toe in dezelfde structuur  
+- CSS-variabelen voor kleuren en lettertypen staan bovenaan in styles.css  
+- Voeg nieuwe afbeeldingen of visuals toe in /public/  
+- Het contactformulier opent automatisch de e-mailclient, er wordt niets opgeslagen
+
+---
+
+## 🏁 Deploy
+
+- GitHub Pages: open Settings → Pages → Deploy from branch → root  
+- Vercel: importeer de repo, kies “Other” als framework, klik Deploy
+
+De site wordt automatisch gehost zonder extra configuratie.
+
+---
+
+© DHAIN B.V. — kunstmatige intelligentie met menselijk inzicht

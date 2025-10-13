@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="nl" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Disclaimer - DHAIN</title>
+    <meta name="description" content="Disclaimer — DHAIN" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css?v=2" />
+    <link rel="icon" href="public/favicon.png" />
+  </head>
+  <body>
+    <script>
+      // Apply saved theme immediately to prevent flash
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+    </script>
+    
+    <!-- Sticky CTA -->
+    <a href="#contact" class="sticky-cta" aria-label="plan kennismaking">plan kennismaking</a>
+
+    <!-- Header -->
+    <header class="site-header" role="banner">
+      <nav class="nav">
+        <a class="brand" href="index.html">DHAIN</a>
+        <ul class="nav-links">
+          <li><a href="index.html#over">over</a></li>
+          <li><a href="index.html#aanpak">aanpak</a></li>
+          <li><a href="index.html#impact">impact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="section" style="flex: 1;">
+      <div class="container">
+  <h1>Disclaimer</h1>
+        <p>De informatie op deze site is bedoeld als algemene informatie. Er kunnen geen rechten aan worden ontleend. Voor specifieke vragen of afspraken neem direct contact op met DHAIN.</p>
+        <p>© <span id="year"></span> DHAIN B.V. KvK 98516523</p>
+        <button id="back-home" class="btn btn-primary" style="margin-top:32px;">terug naar start</button>
+        <script>
+        document.getElementById('back-home').addEventListener('click', function(e) {
+          e.preventDefault();
+          document.body.style.overflow = 'hidden';
+          document.body.style.direction = 'ltr';
+          document.body.style.width = '100vw';
+          document.body.style.position = 'fixed';
+          document.body.style.left = '0';
+          document.body.style.top = '0';
+          document.body.style.transition = 'transform 0.7s cubic-bezier(.77,.2,.32,1)';
+          document.body.style.transform = 'translateX(100vw)';
+          setTimeout(function(){ document.body.style.display = 'none'; }, 600);
+          sessionStorage.setItem('skipLoader', '1');
+          setTimeout(function(){ window.location.href = 'index.html'; }, 650);
+        });
+        </script>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>© <span id="year"></span> DHAIN B.V.</p>
+        <nav class="footer-nav">
+          <a href="disclaimer.html" class="slide-link">disclaimer</a>
+          <a href="privacy.html" class="slide-link">privacy</a>
+        </nav>
+        <div class="footer-actions">
+          <button id="theme-toggle" class="btn btn-ghost" aria-label="schakel kleurmodus">Donkere Modus</button>
+        </div>
+      </div>
+    </footer>
+
+  <script src="js/app.js?v=2" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Slide navigation
+      document.querySelectorAll('.slide-link').forEach(function(link){
+        link.addEventListener('click',function(e){
+          e.preventDefault();
+          document.body.style.overflow = 'hidden';
+          document.body.style.direction = 'ltr';
+          document.body.style.width = '100vw';
+          document.body.style.position = 'fixed';
+          document.body.style.left = '0';
+          document.body.style.top = '0';
+          document.body.style.transition = 'transform 0.7s cubic-bezier(.77,.2,.32,1)';
+          document.body.style.transform = 'translateX(-100vw)';
+          setTimeout(function(){ window.location.href = link.getAttribute('href'); }, 600);
+        });
+      });
+
+      // Theme toggle functionality
+      const root = document.documentElement;
+      const btnTheme = document.getElementById('theme-toggle');
+      const yearEl = document.getElementById('year');
+      
+      // Set current year
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+      
+      const applyTheme = (isDark) => {
+        if (isDark) {
+          root.classList.add('dark');
+          document.body.classList.add('dark');
+        } else {
+          root.classList.remove('dark');
+          document.body.classList.remove('dark');
+        }
+        if (btnTheme) btnTheme.textContent = isDark ? 'Lichte Modus' : 'Donkere Modus';
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      };
+      
+      // Initialize theme from saved state
+      if (btnTheme) {
+        const initialDark = root.classList.contains('dark');
+        applyTheme(initialDark);
+        
+        btnTheme.addEventListener('click', function(){
+          const nowDark = root.classList.contains('dark');
+          applyTheme(!nowDark);
+        });
+      }
+    });
+  </script>
+  </body>
+</html>

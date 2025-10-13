@@ -1,70 +1,62 @@
-// Consolidated app script: staged loader, theme toggle, scroll reveal, contact form
-
-// Theme initialization and toggle
-(function themeInit(){
-  const btn = document.getElementById('theme-toggle');
-  const html = document.documentElement;
-  const saved = localStorage.getItem('theme');
-  if (saved === 'dark') html.classList.add('dark');
-  function apply(isDark){
-    if (isDark) html.classList.add('dark'); else html.classList.remove('dark');
-    if (btn) btn.textContent = isDark ? 'Lichte Modus' : 'Donkere Modus';
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  }
-  if (btn) {
-    btn.addEventListener('click', ()=> apply(!html.classList.contains('dark')));
-    // init label
-    apply(html.classList.contains('dark'));
+// Theme management: default to light on main load; allow toggle
+(function initThemeAndScroll(){
+  // Always start at top and in light mode on main page
+  if (location.pathname === '/' || location.pathname.endsWith('index.html')){
+    window.scrollTo(0,0);
+    document.documentElement.classList.remove('dark');
+    localStorage.setItem('theme','light');
+  } else {
+    // for legal pages we don't force, but respect saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') document.documentElement.classList.add('dark');
   }
 })();
 
-// Loader: staged animation (fast -> medium -> slow tail). Ensures only one loader runs.
+// Loader: staged animation inspired by reference timing (fast -> medium -> slow tail)
 (function loaderStaged(){
   const root = document.getElementById('loader');
   if (!root) return;
+  const progressEl = document.getElementById('loader-progress');
+  const label = document.getElementById('loader-text');
+  const msg = document.getElementById('loader-msg');
+  const bg = document.getElementById('loader-bg');
+  const big = document.getElementById('loader-big') || document.querySelector('.loader-percent');
 
-  // Ensure required elements exist
-  const inner = root.querySelector('.loader-inner') || document.createElement('div');
-  const bg = document.getElementById('loader-bg') || document.createElement('div');
-  const big = document.getElementById('loader-big') || document.createElement('div');
-  const msg = document.getElementById('loader-msg') || document.createElement('div');
-  const progress = document.getElementById('loader-progress');
-  const text = document.getElementById('loader-text');
-
-  // Default text
   if (msg) msg.textContent = 'Met DHAIN vooruit met verantwoorde AI';
-  if (text) text.style.display = 'none';
+  if (label) label.style.display = 'none';
 
+  // Make the loader message fit into one line by reducing font-size if needed
   const fitText = (el, container, opts={minSize:10, step:0.8, pad:40}) => {
-    try{
-      if (!el || !container) return;
-      const pad = opts.pad || 40;
-      const cs = window.getComputedStyle(el);
-      const defaultSize = parseFloat(cs.fontSize) || 16;
-      let size = defaultSize;
-      for (let i=0;i<36;i++){
-        if (el.scrollWidth <= (container.clientWidth - pad)) break;
-        size = Math.max(opts.minSize, size - opts.step);
-        el.style.fontSize = size + 'px';
-      }
-    }catch(e){/* ignore */}
+    if (!el || !container) return;
+    const pad = opts.pad || 40;
+    const cs = window.getComputedStyle(el);
+    const defaultSize = parseFloat(cs.fontSize) || 16;
+    let size = defaultSize;
+    for (let i=0;i<36;i++){
+      const fits = el.scrollWidth <= (container.clientWidth - pad);
+      if (fits) break;
+      size = Math.max(opts.minSize, size - opts.step);
+      el.style.fontSize = size + 'px';
+    }
   };
 
-  setTimeout(()=> fitText(msg, inner), 40);
+  const inner = document.querySelector('.loader-inner');
+  setTimeout(()=> fitText(msg, inner), 20);
   setTimeout(()=> fitText(msg, inner), 260);
   window.addEventListener('resize', ()=> fitText(msg, inner));
 
+  // Define stages to mimic the feel of the reference: quick ramp, medium push, slow finish
   const stages = [
-    {to:60, duration:600, ease: t => t*t},
-    {to:95, duration:1400, ease: t => 1 - Math.pow(1 - t, 2.2)},
-    {to:100, duration:1600, ease: t => 1 - Math.pow(1 - t, 3), hold: 380}
+    {to:60, duration:500, ease: t => t*t},            // fast (0->60)
+    {to:95, duration:1400, ease: t => 1 - Math.pow(1 - t, 2.2)}, // medium (60->95)
+    {to:100, duration:1800, ease: t => 1 - Math.pow(1 - t, 3), hold: 380} // slow tail (95->100)
   ];
 
-  const clamp = (v,min,max)=> Math.max(min, Math.min(max, v));
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
 
-  function update(p){
+  function updateVisuals(p){
     const pct = Math.round(p);
-    if (progress) progress.style.width = p + '%';
+    if (progressEl) progressEl.style.width = p + '%';
     if (bg) bg.style.width = p + '%';
     if (big) big.textContent = pct + '%';
     if (msg){
@@ -74,36 +66,37 @@
     }
   }
 
-  function animateStage(index, from, cb){
+  function animateStage(index, from, done){
     const s = stages[index];
     const start = performance.now();
     function frame(now){
       const t = clamp((now - start) / s.duration, 0, 1);
       const eased = s.ease(t);
       const val = from + (s.to - from) * eased;
-      update(val);
+      updateVisuals(val);
       if (t < 1) requestAnimationFrame(frame);
       else {
-        if (s.hold) setTimeout(()=> cb && cb(), s.hold);
-        else cb && cb();
+        if (s.hold) setTimeout(()=> done && done(), s.hold);
+        else done && done();
       }
     }
     requestAnimationFrame(frame);
   }
 
+  // Run stages sequentially
   animateStage(0, 0, ()=>{
     animateStage(1, 60, ()=>{
       animateStage(2, 95, ()=>{
-        update(100);
+        updateVisuals(100);
         root.classList.add('hidden');
         setTimeout(()=> root.remove(), 700);
       });
     });
   });
 
-  // safety
+  // Safety: force-complete after 12s
   setTimeout(()=>{
-    update(100);
+    updateVisuals(100);
     if (!root.classList.contains('hidden')){
       root.classList.add('hidden'); setTimeout(()=> root.remove(), 700);
     }
@@ -111,29 +104,77 @@
 
 })();
 
-// Scroll reveal
-(function scrollReveal(){
-  const els = document.querySelectorAll('.observe');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if (e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
-  },{threshold:0.12});
-  els.forEach(el=> io.observe(el));
-})();
+(function(){
+  const $ = s => document.querySelector(s);
+  const $$ = s => document.querySelectorAll(s);
 
-// Contact form -> mailto
-(function contactForm(){
-  const form = document.getElementById('contact-form');
-  if (!form) return;
+  // Jaar in footer
+  const yearEl = $('#year'); if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // Thema-toggle
+  const root = document.documentElement;
+  const btnTheme = $('#theme-toggle');
+  const applyTheme = (isDark) => {
+    if (isDark) root.classList.add('dark');
+    else root.classList.remove('dark');
+    if (btnTheme) btnTheme.textContent = isDark ? 'Lichte Modus' : 'Donkere Modus';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  };
+  // initialize button label from saved state
+  if (btnTheme) {
+    const initialDark = root.classList.contains('dark');
+    applyTheme(initialDark);
+    btnTheme.addEventListener('click', ()=>{
+      const nowDark = root.classList.contains('dark');
+      applyTheme(!nowDark);
+    });
+  }
+
+  // Smooth slideshow transition for links with .slide-link
+  const wrapper = document.getElementById('page-wrapper');
+  document.querySelectorAll('.slide-link').forEach(link => {
+    link.addEventListener('click', (e)=>{
+      if (!wrapper) return; // safeguard
+      e.preventDefault();
+      wrapper.style.transition = 'transform 0.7s cubic-bezier(.77,.2,.32,1)';
+      wrapper.style.transform = 'translateX(-100vw)';
+      const href = link.getAttribute('href');
+      setTimeout(()=> { window.location.href = href; }, 550);
+    });
+  });
+
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in-view');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.12});
+  $$('.observe').forEach(el=>io.observe(el));
+
+  // Contactformulier via mailto, geen opslag
+  const form = $('#contact-form');
   form.addEventListener('submit', (ev)=>{
     ev.preventDefault();
     const fd = new FormData(form);
-    if ((fd.get('company')||'').trim() !== '') return; // honeypot
+    // Honeypot
+    if ((fd.get('company')||'').trim() !== '') return;
+
     const name = (fd.get('name')||'').toString().trim();
     const email = (fd.get('email')||'').toString().trim();
     const message = (fd.get('message')||'').toString().trim();
-    if(!name || !email || !message){ alert('vul alle velden in'); return; }
+
+    if(!name || !email || !message){
+      alert('vul alle velden in');
+      return;
+    }
+
     const subject = encodeURIComponent('Kennismaking met DHAIN');
     const body = encodeURIComponent(`Naam: ${name}\nE-mail: ${email}\n\nBericht:\n${message}`);
-    window.location.href = `mailto:info@dhain.nl?subject=${subject}&body=${body}`;
+    const mailto = `mailto:info@dhain.nl?subject=${subject}&body=${body}`;
+    window.location.href = mailto;
   });
 })();

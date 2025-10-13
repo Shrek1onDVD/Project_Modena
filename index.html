@@ -26,8 +26,7 @@
         </div>
       </div>
 
-      <!-- Sticky CTA -->
-      <a href="#contact" class="sticky-cta" aria-label="plan kennismaking">plan kennismaking</a>
+      
 
       <!-- Header -->
       <header class="site-header" role="banner">
@@ -43,8 +42,8 @@
         </nav>
       </header>
 
-      <!-- Intro -->
-      <section id="intro" class="section hero observe">
+  <!-- Intro -->
+  <section id="intro" class="section hero observe section-intro">
         <div class="container grid two">
           <div>
             <h1>kunstmatige intelligentie met menselijk inzicht</h1>
@@ -54,7 +53,7 @@
               <a href="#watwedoen" class="btn btn-secondary">lees verder</a>
             </div>
           </div>
-          <div class="ai-img-placeholder" aria-label="AI afbeelding draft"></div>
+      <div class="ai-img-placeholder draft" aria-label="AI afbeelding draft"></div>
         </div>
       </section>
 
@@ -72,41 +71,53 @@
         </svg>
       </button>
 
-      <!-- Wat we doen + Aanpak + Resultaat -->
-      <section id="watwedoen" class="section observe">
-        <div class="container grid three">
+      <!-- Wat we doen -->
+      <section id="watwedoen" class="section observe section-wat">
+        <div class="container grid two">
           <div>
             <h2>Wat we doen</h2>
-            <div class="ai-img-placeholder" aria-label="AI afbeelding draft"></div>
             <p>Wij ontwikkelen verantwoorde AI-oplossingen voor het sociaal domein en jeugdzorg.</p>
           </div>
+          <div class="ai-img-placeholder draft" aria-label="AI afbeelding draft"></div>
+        </div>
+      </section>
+
+      <!-- Hoe we het doen (Aanpak) -->
+      <section id="hoewedoen" class="section observe section-hoe">
+        <div class="container grid two">
           <div>
-            <h2>Aanpak</h2>
-            <div class="ai-img-placeholder" aria-label="AI afbeelding draft"></div>
+            <h2>Hoe we het doen</h2>
             <ul>
               <li>Verkennen: doel, risico, data, mens centraal</li>
               <li>Ontwerpen: uitlegbare modellen, privacy by design</li>
               <li>Realiseren: pilots, meten van waarde, overdraagbaarheid</li>
             </ul>
           </div>
+          <div class="ai-img-placeholder draft" aria-label="AI afbeelding draft"></div>
+        </div>
+      </section>
+
+      <!-- Resultaat -->
+      <section id="resultaat" class="section observe section-resultaat">
+        <div class="container grid two">
           <div>
             <h2>Resultaat</h2>
-            <div class="ai-img-placeholder" aria-label="AI afbeelding draft"></div>
             <ul>
               <li>Sneller intakeproces</li>
               <li>Minder administratie</li>
               <li>Betere inzichten</li>
             </ul>
           </div>
+          <div class="ai-img-placeholder draft" aria-label="AI afbeelding draft"></div>
         </div>
       </section>
 
       <!-- Over DHAIN -->
-      <section id="overdhain" class="section observe">
+      <section id="overdhain" class="section observe section-over">
         <div class="container grid two">
           <div>
             <h2>Over DHAIN</h2>
-            <div class="ai-img-placeholder" aria-label="AI afbeelding draft"></div>
+            <div class="ai-img-placeholder draft" aria-label="AI afbeelding draft"></div>
             <p>DHAIN is ontstaan vanuit persoonlijke ervaring met de jeugdzorg en het sociaal domein. Van dichtbij werd duidelijk hoe goedbedoelde systemen worstelen met personeelsverloop, onvolledige dossiers en trage opvolging. Professionals doen hun uiterste best, maar raken verstrikt in procedures en administratie. Daardoor krijgen kinderen en gezinnen niet altijd de juiste of tijdige hulp, en blijft de kwaliteit onder druk staan.</p>
             <p>De basis voor DHAIN werd gelegd tijdens een masteronderzoek aan de Universiteit van Amsterdam naar hoe kunstmatige intelligentie kan bijdragen aan een sneller en beter aanmeld- en intakeproces. Daaruit bleek dat veel vertraging voortkomt uit administratieve belasting en een gebrek aan overzicht in de keten.</p>
             <p>Sindsdien richt DHAIN zich op het ontwikkelen van verantwoorde AI-toepassingen binnen de jeugdzorg en het sociaal domein. We helpen organisaties weer overzicht te krijgen en meer ruimte te maken voor wat echt belangrijk is: mensen helpen. Ons doel is een toekomst waarin kinderen de juiste zorg krijgen en professionals met plezier hun werk doen, gesteund door technologie die het verschil maakt.</p>
@@ -115,7 +126,7 @@
       </section>
 
       <!-- Contact -->
-      <section id="contact" class="section observe">
+      <section id="contact" class="section observe section-contact">
         <div class="container grid two">
           <div>
             <h2>contact</h2>
@@ -160,16 +171,5 @@
     </div>
 
   <script src="js/app.js?v=2" defer></script>
-  <script>
-    document.querySelectorAll('.slide-link').forEach(function(link){
-      link.addEventListener('click',function(e){
-        e.preventDefault();
-        var wrapper = document.getElementById('page-wrapper');
-        wrapper.style.transition = 'transform 0.7s cubic-bezier(.77,.2,.32,1)';
-        wrapper.style.transform = 'translateX(-100vw)';
-        setTimeout(function(){ window.location.href = link.getAttribute('href'); }, 600);
-      });
-    });
-  </script>
   </body>
 </html>

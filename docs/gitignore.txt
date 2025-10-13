@@ -1,0 +1,20 @@
+# Node / build
+node_modules/
+dist/
+build/
+.cache/
+
+# VS Code
+.vscode/
+
+# Logs en tijdelijke bestanden
+*.log
+*.tmp
+*.zip
+
+# Omgevingsbestanden (nooit uploaden)
+.env
+
+# OS specifieke bestanden
+.DS_Store
+Thumbs.db

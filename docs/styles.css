@@ -1,0 +1,401 @@
+:root {
+  --tea: #EBEDDF;
+  --moss: #333A2F;
+  --blue: #2563EB;
+  --gray: #F5F7FA;
+  --ink: #0B1320;
+  --white: #FFFFFF;
+  --radius: 16px;
+  --shadow: 0 12px 28px rgba(0,0,0,0.08);
+  --space: 20px;
+}
+
+html { scroll-behavior: smooth; }
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--gray);
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: "Space Grotesk", Inter, system-ui, Arial, sans-serif;
+  margin: 0 0 12px 0;
+}
+
+h1 { font-size: clamp(32px, 6vw, 56px); }
+h2 { font-size: clamp(24px, 3vw, 34px); }
+h3 { font-size: clamp(18px, 2vw, 22px); }
+
+.container { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+.section { padding: 88px 0; }
+
+.grid.two { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+@media (max-width: 960px) { .grid.two { grid-template-columns: 1fr; } }
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  background: rgba(245,247,250,0.8);
+  backdrop-filter: saturate(180%) blur(8px);
+  z-index: 50;
+  border-bottom: 1px solid #E5E8EF;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px;
+}
+.nav .brand {
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ink);
+}
+.nav-links {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--ink);
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+.nav-links a:hover { background: var(--tea); }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+  text-transform: lowercase;
+  box-shadow: var(--shadow);
+}
+.btn-primary {
+  background: var(--blue);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--moss); }
+.btn-secondary {
+  background: var(--tea);
+  color: var(--ink);
+}
+.btn-ghost {
+  background: transparent;
+  border-color: #E5E8EF;
+  color: var(--ink);
+}
+
+/* Sticky CTA */
+.sticky-cta {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: var(--blue);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  z-index: 60;
+  box-shadow: var(--shadow);
+  text-transform: lowercase;
+}
+.sticky-cta:hover { background: var(--moss); }
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 72vh;
+  display: flex;
+  align-items: center;
+}
+.hero .hero-visual {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 40vh;
+  background: linear-gradient(180deg, rgba(37,99,235,0.08), rgba(235,237,223,0.6));
+  filter: blur(40px);
+}
+.hero .container { position: relative; z-index: 1; }
+.cta-wrap { display: flex; gap: 12px; margin-top: 12px; }
+
+/* Over visuals */
+.panel.visual {
+  min-height: 260px;
+  border-radius: 16px;
+  background: radial-gradient(60% 60% at 50% 40%, rgba(37,99,235,0.18), rgba(51,58,47,0.22)), var(--white);
+  box-shadow: var(--shadow);
+}
+.bullets { padding-left: 18px; }
+.bullets li { margin: 6px 0; }
+
+/* Aanpak cards */
+.steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+@media (max-width: 960px) { .steps { grid-template-columns: 1fr; } }
+.step-card {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid #E5E8EF;
+}
+
+/* Impact */
+.impact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+@media (max-width: 960px) { .impact-grid { grid-template-columns: 1fr; } }
+.impact-item {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid #E5E8EF;
+}
+
+/* Logos */
+.logo-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.logo-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 84px;
+  background: var(--white);
+  border-radius: 16px;
+  border: 1px solid #E5E8EF;
+  box-shadow: var(--shadow);
+  text-transform: lowercase;
+}
+
+/* Contact */
+.contact-form { display: grid; gap: 12px; }
+.contact-form label { display: grid; gap: 6px; }
+.contact-form input, .contact-form textarea {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #E5E8EF;
+  background: #fff;
+  font: inherit;
+}
+.contact-form .hp { position: absolute; left: -9999px; }
+.form-note { font-size: 0.9rem; color: #5B6472; }
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid #E5E8EF;
+  background: #fff;
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px;
+}
+
+.footer-actions { display:flex; gap:12px; align-items:center; }
+.footer-actions .btn { padding:8px 12px; border-radius:10px; }
+.footer-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  margin-left: 12px;
+}
+.footer-nav a:hover { text-decoration: underline; }
+
+/* Loader */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity .5s ease, visibility .5s ease;
+}
+.loader-inner {
+  width: min(920px, 94vw);
+  max-width: 1100px;
+  padding: 36px 48px;
+  border-radius: 16px;
+  background: transparent; /* keep inner transparent so big percent shows through */
+  position: relative;
+  z-index: 3;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.loader-bar { display: none; } /* hide small bar for the reference-like look */
+
+/* Big background percent (very large, centered, subtle)
+   The number should be visually dominant but very low contrast */
+.loader-percent, .loader-big {
+  position: absolute;
+  left: 50%; top: 50%; transform: translate(-50%,-46%);
+  font-weight: 900;
+  line-height: .78;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: clamp(5rem, 22vw, 28rem);
+  color: rgba(255,255,255,0.06);
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  text-rendering: optimizeLegibility;
+}
+html.dark .loader-percent, html.dark .loader-big { color: rgba(255,255,255,0.06); }
+
+/* Loader message: centered and above the big percent */
+.loader-message, #loader-msg {
+  position: relative;
+  z-index: 4;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  overflow: visible;
+  font-size: clamp(1rem, 2.4vw, 2rem);
+  letter-spacing: 0.01em;
+  margin: 0 0 12px 0;
+  transition: opacity 360ms cubic-bezier(.2,.9,.2,1), transform 360ms cubic-bezier(.2,.9,.2,1);
+}
+
+/* Full-screen background progress strip (subtle left→right fill) */
+.loader-bg {
+  position: absolute;
+  left: 0; top: 0; bottom: 0; width: 0%;
+  background: linear-gradient(90deg, rgba(124,192,255,0.06), rgba(37,99,235,0.08));
+  z-index: 0;
+  transition: width 160ms linear;
+}
+.loader-inner { position: relative; z-index: 3; }
+
+/* Reveal animations */
+.observe {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.observe.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* Dark mode */
+html.dark body {
+  background: var(--ink);
+  color: #F5F7FA;
+}
+html.dark .site-header {
+  background: rgba(11,19,32,0.7);
+  border-color: #223;
+}
+html.dark .nav-links a { color: #F5F7FA; }
+html.dark .panel.visual,
+.step-card,
+.impact-item,
+.logo-card,
+.site-footer,
+.contact-form input,
+.contact-form textarea {
+  background: #0F1A2C;
+  color: #F5F7FA;
+  border-color: #243048;
+}
+html.dark .footer-nav a { color: #F5F7FA; }
+html.dark .hero .hero-visual {
+  background: linear-gradient(180deg, rgba(37,99,235,0.12), rgba(235,237,223,0.08));
+}
+
+/* Header & controls in dark mode */
+html.dark .nav .brand {
+  color: #F5F7FA;
+}
+html.dark .btn-ghost {
+  color: #F5F7FA;
+  border-color: rgba(255,255,255,0.08);
+}
+html.dark #theme-toggle[aria-label] {
+  /* ensure the theme toggle (button) text is visible */
+  color: #F5F7FA;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .observe { transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* Backward compatible classes */
+#loader.hidden { opacity:0; visibility:hidden; }
+/* Compatibility: loader-percent handled above. */
+
+/* Brand HAI pijltje */
+.brand-hai { position:relative; }
+.brand-hai .hai-arrow {
+  position:absolute; right:-.2rem; top:-.5rem; font-style:normal; font-weight:700;
+  transform: rotate(90deg);
+  font-size:.8em; opacity:.7;
+}
+
+/* Section tweaks */
+#visie-missie .panel.visual,
+#over .panel.visual { background:linear-gradient(135deg,#111 0%, #1a1a1a 100%); border-radius:1rem; }
+
+/* Footer: default (light mode) */
+.site-footer { background: #fff; color: var(--ink); }
+.site-footer a { color: var(--ink); text-decoration:underline; }
+
+/* Footer contrast in dark mode */
+html.dark .site-footer { background:#0e0e0e; color:#bbb; }
+html.dark .site-footer a { color:#fff; text-decoration:underline; }
+
+/* Ensure footer controls are clearly visible in dark mode */
+html.dark .site-footer .footer-actions .btn,
+html.dark .site-footer .footer-actions .btn-ghost {
+  color: #F5F7FA;
+  border-color: rgba(255,255,255,0.08);
+}
+
+body { overflow-x:hidden; }
+
+/* While the loader element exists, keep the rest of the page invisible and inert.
+   When the loader receives the `.hidden` class we fade the page content back in,
+   then the loader is removed from the DOM by the script. */
+#loader ~ * {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity .45s ease, visibility 0s linear .45s;
+}
+
+/* When loader is hiding, reveal content with a short fade-in */
+#loader.hidden ~ * {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+/* Prevent scrolling while loader is present */
+#loader { touch-action: none; }
+html, body { overscroll-behavior: none; }
+
+/* Footer button in light mode: ensure it uses dark ink */
+html:not(.dark) .site-footer .footer-actions .btn,
+html:not(.dark) .site-footer .footer-actions .btn-ghost {
+  color: var(--ink);
+  border-color: #E5E8EF;
+}
+

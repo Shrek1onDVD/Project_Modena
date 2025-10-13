@@ -58,13 +58,6 @@ Kenmerken:
 
 ---
 
-Troubleshooting
---
-- Als de site ongestyled verschijnt: zorg dat je de site opent via de HTTP-server (bijv. http://localhost:3000) en niet direct met file://. Direct openen kan relatieve paden en browser security breken.
-- Wis de browsercache of open een incognito/privé-venster om verouderde CSS/JS te vermijden.
-- Voor snelle cache-busting tijdens ontwikkeling kun je in `index.html` tijdelijk de stylesheet link aanpassen naar bijvoorbeeld `css/styles.css?v=1.0` en de `v` verhogen na updates.
-
-
 ## 💻 Lokaal draaien op je computer
 
 1. Installeer Python via https://www.python.org/downloads/  

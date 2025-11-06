@@ -802,13 +802,31 @@ html:not(.dark) .sticky-cta {
 
 /* Contact */
 .contact-form { display: grid; gap: 12px; }
-.contact-form label { display: grid; gap: 6px; }
+.contact-form label { 
+  display: grid; 
+  gap: 6px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.contact-form label:hover {
+  opacity: 0.9;
+}
 .contact-form input, .contact-form textarea {
   padding: 12px;
   border-radius: 12px;
   border: 1px solid #E5E8EF;
   background: #fff;
   font: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: text;
+}
+.contact-form input:hover, .contact-form textarea:hover {
+  border-color: var(--blue);
+}
+.contact-form input:focus, .contact-form textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(0, 46, 82, 0.1);
 }
 .contact-form .hp { position: absolute; left: -9999px; }
 .form-note { font-size: 0.9rem; color: #5B6472; }
@@ -824,6 +842,17 @@ html:not(.dark) .sticky-cta {
   font-weight: 600;
   font-size: 1rem;
   letter-spacing: 0.02em;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.contact-form button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 46, 82, 0.2);
+}
+
+.contact-form button[type="submit"]:active {
+  transform: translateY(0);
 }
 
 /* Light mode contact section text color for better visibility */
@@ -1470,6 +1499,15 @@ html.dark .contact-form textarea {
   background: #333A2F;
   color: #F5F7FA;
   border-color: #002E52;
+}
+html.dark .contact-form input:hover,
+html.dark .contact-form textarea:hover {
+  border-color: #4A90E2;
+}
+html.dark .contact-form input:focus,
+html.dark .contact-form textarea:focus {
+  border-color: #4A90E2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
 }
 html.dark .footer-nav a {
   color: #002E52;

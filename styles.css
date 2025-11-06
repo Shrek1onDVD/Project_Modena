@@ -806,10 +806,12 @@ html:not(.dark) .sticky-cta {
   display: grid; 
   gap: 6px;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, transform 0.2s ease;
+  font-weight: 500;
 }
 .contact-form label:hover {
-  opacity: 0.9;
+  color: var(--blue);
+  transform: translateX(2px);
 }
 .contact-form input, .contact-form textarea {
   padding: 12px;
@@ -1508,6 +1510,9 @@ html.dark .contact-form input:focus,
 html.dark .contact-form textarea:focus {
   border-color: #4A90E2;
   box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+html.dark .contact-form label:hover {
+  color: #4A90E2;
 }
 html.dark .footer-nav a {
   color: #002E52;

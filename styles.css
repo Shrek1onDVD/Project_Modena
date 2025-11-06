@@ -396,19 +396,6 @@ html.dark .story-content .footnote a:hover {
   transform: scale(1.05);
 }
 
-/* Dark mode: enhanced background behind story images for visibility */
-html.dark .story-image {
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(4px);
-}
-
-html.dark .story-image:hover {
-  background: rgba(255, 255, 255, 0.35);
-  border-color: rgba(255, 255, 255, 0.25);
-  transform: scale(1.02);
-}
-
 /* Mobile: stack each story item vertically for proper Image-Title-Text order */
 @media (max-width: 960px) {
   .story-rows {

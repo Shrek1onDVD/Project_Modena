@@ -1256,6 +1256,12 @@ html.dark .loader-percent, html.dark .loader-big { color: rgba(235, 237, 223, 0.
 .werkwijze-item h2 {
   text-align: center;
 }
+
+/* Center align werkwijze item paragraphs */
+.werkwijze-item p {
+  text-align: center;
+}
+
 .section-wathoe ul, .section-wathoe p {
   color: #333A2F;
 }

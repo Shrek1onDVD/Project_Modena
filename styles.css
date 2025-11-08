@@ -1,4 +1,4 @@
-/* Legal page banner styles for disclaimer/privacy */
+/* Legal page banner styles for disclaimer/privacy (use relative path, safe filename) */
 .legal-banner {
   width: 100vw;
   max-width: none;
@@ -6,14 +6,14 @@
   padding: 96px 0 0 0;
   text-align: left;
   box-sizing: border-box;
-  background: linear-gradient(rgba(245, 247, 250, 0.8), rgba(245, 247, 250, 0.9)), 
-              url('/public/5_Legal Pages.png') center/cover no-repeat;
+  background: linear-gradient(rgba(245, 247, 250, 0.8), rgba(245, 247, 250, 0.9)),
+              url('public/5-legal-pages.png') center/cover no-repeat;
   background-attachment: fixed;
   color: var(--ink);
 }
 html.dark .legal-banner {
-  background: linear-gradient(rgba(11, 19, 32, 0.8), rgba(11, 19, 32, 0.9)), 
-              url('/public/5_Legal Pages.png') center/cover no-repeat;
+  background: linear-gradient(rgba(11, 19, 32, 0.8), rgba(11, 19, 32, 0.9)),
+              url('public/5-legal-pages.png') center/cover no-repeat;
   background-attachment: fixed;
   color: #F5F7FA;
 }

@@ -1,0 +1,1881 @@
+/* Legal page banner styles for disclaimer/privacy */
+.legal-banner {
+  width: 100vw;
+  max-width: none;
+  margin: 0;
+  padding: 96px 0 0 0;
+  text-align: left;
+  box-sizing: border-box;
+  background: linear-gradient(rgba(245, 247, 250, 0.8), rgba(245, 247, 250, 0.9)), 
+              url('/public/5_Legal Pages.png') center/cover no-repeat;
+  background-attachment: fixed;
+  color: var(--ink);
+}
+html.dark .legal-banner {
+  background: linear-gradient(rgba(11, 19, 32, 0.8), rgba(11, 19, 32, 0.9)), 
+              url('/public/5_Legal Pages.png') center/cover no-repeat;
+  background-attachment: fixed;
+  color: #F5F7FA;
+}
+
+/* Smooth content transitions for legal page switching */
+.legal-banner .container {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Prevent scrolling on legal pages */
+.legal-no-scroll {
+  overflow-y: auto !important; /* Allow vertical scrolling for long content */
+  height: 100vh !important;
+  background: var(--gray);
+}
+html.dark .legal-no-scroll {
+  background: #0B1320 !important;
+}
+
+/* Legal page wrapper animation - animate entire page as one unit */
+.legal-no-scroll #page-wrapper {
+  opacity: 0;
+  transform: translateY(60px) scale(0.98);
+  transition: opacity 0.8s cubic-bezier(.2,.8,.2,1), transform 0.8s cubic-bezier(.2,.8,.2,1);
+}
+.legal-no-scroll #page-wrapper.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* Mobile: disable fixed attachment for better performance */
+@media (max-width: 768px) {
+  .legal-banner {
+    background-attachment: scroll;
+  }
+  html.dark .legal-banner {
+    background-attachment: scroll;
+  }
+}
+:root {
+  --tea: #EBEDDF;
+  --moss: #333A2F;
+  --blue: #002E52;
+  --gray: #F5F7FA;
+  --ink: #0B1320;
+  --white: #FFFFFF;
+  --radius: 16px;
+  --shadow: 0 12px 28px rgba(0,0,0,0.08);
+  --space: 20px;
+  --header-height: 96px;    /* Geschatte header hoogte voor berekeningen */
+  /* section theme helpers */
+
+  --intro-bg: linear-gradient(135deg, var(--gray), var(--tea));
+  --wat-bg: #EBEDDF;
+  --hoe-bg: linear-gradient(135deg, #f0f4ff, #e6eeff);
+  --resultaat-bg: linear-gradient(135deg, #f7fafc, #ebf4ff);
+  --over-bg: #EBEDDF;
+  --contact-bg: linear-gradient(135deg, #EBEDDF, #333A2F);
+}
+
+html { 
+  scroll-behavior: auto;  /* Disable CSS smooth scrolling for anchor links since JS handles it with header offset */
+}
+
+/* Re-enable smooth scrolling for JS-triggered scrolls only */
+html.js-smooth-scroll {
+  scroll-behavior: smooth;
+}
+* { box-sizing: border-box; }
+
+/* Force scroll to top on main page load */
+body.main-page {
+  scroll-behavior: auto; /* disable smooth scroll during initial load */
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--gray);
+  line-height: 1.6;
+  text-align: left;
+}
+
+h1, h2, h3 {
+  font-family: "Space Grotesk", Inter, system-ui, Arial, sans-serif;
+  margin: 0 0 12px 0;
+  font-weight: 700; /* Make all headers bold */
+}
+
+/* Ensure all section headers use blue color in light mode and are bold */
+.section-intro h2,
+.section-wathoe h2,
+#overdhain h2,
+.section-contact h2,
+.werkwijze-item h3 {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+p, li {
+  text-align: left;
+}
+
+h1 { font-size: clamp(32px, 6vw, 56px); }
+h2 { font-size: clamp(24px, 3vw, 34px); }
+h3 { font-size: clamp(18px, 2vw, 22px); }
+
+.container { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+.section { 
+  padding: 88px 0; 
+  min-height: 100vh;        /* Elke sectie vult volledige schermhoogte */
+  display: flex;            /* Flexbox voor verticale centrering */
+  flex-direction: column;   /* Verticale layout */
+  justify-content: center;  /* Centreer content verticaal */
+}
+@media (max-width: 600px) {
+  .container { padding: 0 8px; }
+  .section { 
+    padding: 48px 0; 
+    min-height: 100vh;      /* Ook op mobile volledige hoogte */
+  }
+}
+
+/* Smooth section snap: elke sectie vult volledige viewport */
+html, body { height: 100%; }
+body {
+  scroll-snap-type: y mandatory;
+}
+.section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;        /* Volledige viewport hoogte */
+  min-height: calc(100vh - var(--header-height)); /* Minus header hoogte */
+  display: flex;            /* Flexbox voor betere content verdeling */
+  flex-direction: column;
+  justify-content: center;  /* Centreer content verticaal */
+  position: relative;       /* Voor eventuele absolute positioning */
+  box-sizing: border-box;   /* Include padding in height calculation */
+}
+
+/* Eerste sectie (intro) moet volledige hoogte hebben inclusief header ruimte */
+.section:first-of-type {
+  min-height: 100vh;
+  padding-top: calc(88px + var(--header-height)); /* Extra ruimte voor header */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body { scroll-snap-type: none; }
+}
+
+@media (max-width: 600px) {
+  .section:first-of-type {
+    padding-top: calc(48px + 72px); /* Mobile header is kleiner */
+  }
+}
+
+/* Right-middle scroll nav */
+.scroll-nav {
+  position: fixed;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 80;
+  margin-right: env(safe-area-inset-right, 8px);
+  margin-left: env(safe-area-inset-left, 8px);
+}
+.scroll-btn {
+  background: linear-gradient(135deg, #002E52 0%, #1d4ed8 100%);
+  border: 1px solid rgba(37, 99, 235, 0.3);
+  border-radius: 50%;
+  width: 52px; 
+  height: 52px;
+  display: grid; 
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.25), 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.1s ease-in, all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: saturate(180%) blur(12px);
+  opacity: 1;
+  position: relative;
+}
+
+.scroll-btn::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%);
+  z-index: -1;
+}
+
+/* Auto-hide functionality - override transitions when hiding */
+.scroll-nav.auto-hidden .scroll-btn {
+  opacity: 0 !important;
+  pointer-events: none;
+  transition: opacity 1s ease-out !important;
+}
+@media (max-width: 600px) {
+  .scroll-nav {
+    position: fixed;
+    right: 8px;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: auto;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+  }
+  .scroll-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .scroll-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+.scroll-btn:hover { 
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  border-color: rgba(29, 78, 216, 0.4);
+  box-shadow: 0 8px 28px rgba(37, 99, 235, 0.35), 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: scale(1.08) translateY(-1px);
+}
+.scroll-btn:hover svg path,
+.scroll-btn:hover svg circle {
+  stroke: #fff;
+}
+.scroll-btn[hidden] { 
+  display: none; 
+}
+.scroll-btn svg {
+  width: 22px;
+  height: 22px;
+}
+.scroll-btn svg circle,
+.scroll-btn svg path {
+  stroke: #fff;
+  stroke-width: 2.5;
+  transition: stroke 0.2s;
+}
+/* Remove old light mode overrides as we now have modern blue buttons */
+
+.grid.two { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+@media (max-width: 960px) { .grid.two { grid-template-columns: 1fr; } }
+
+/* Contact section: increase spacing between header/text and form */
+.section-contact .container.grid.two {
+  gap: 64px;
+}
+@media (max-width: 960px) { 
+  .section-contact .container.grid.two {
+    gap: 40px;
+  }
+}
+
+/* Three column layout for Missie, Visie, Over DHAIN - REPLACED with story items */
+/* Story items: alternating left-right layout like HubSpot */
+.story-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+/* Desktop layout */
+.story-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  /* For normal story-item: content should be on left, visual on right */
+  grid-template-areas: "content visual";
+}
+
+.story-item .story-content {
+  grid-area: content;
+}
+
+.story-item .story-visual {
+  grid-area: visual;
+}
+
+/* For story-item-reverse: visual should be on the left, content on right */
+.story-item-reverse {
+  grid-template-areas: "visual content";
+}
+
+.story-item-reverse .story-visual {
+  grid-area: visual;
+}
+
+.story-item-reverse .story-content {
+  grid-area: content;
+}
+
+.story-content {
+  padding: 0;
+}
+
+.story-content h3 {
+  margin-top: 0;
+  margin-bottom: 24px;
+  color: var(--blue);
+  font-size: clamp(24px, 3vw, 32px);
+  font-family: "Space Grotesk", Inter, system-ui, Arial, sans-serif;
+}
+
+.story-content p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+/* Footnote styling */
+.story-content .footnote {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin-top: 24px;
+  color: rgba(11, 19, 32, 0.7);
+  font-style: italic;
+}
+
+.story-content .footnote a {
+  color: var(--blue);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.story-content .footnote a:hover {
+  color: var(--moss);
+}
+
+/* Dark mode footnote styling */
+html.dark .story-content .footnote {
+  color: rgba(245, 247, 250, 0.7);
+}
+
+html.dark .story-content .footnote a {
+  color: #7CC0FF;
+}
+
+html.dark .story-content .footnote a:hover {
+  color: #F5F7FA;
+}
+
+.story-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.story-visual .ai-img-placeholder {
+  width: 100%;
+  height: 300px;
+  border-radius: var(--radius);
+}
+
+/* Story images styling - similar to werkwijze images */
+.story-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.story-image:hover {
+  transform: scale(1.05);
+}
+
+/* Mobile: stack each story item vertically for proper Image-Title-Text order */
+@media (max-width: 960px) {
+  .story-rows {
+    gap: 40px;
+  }
+  
+  .story-item,
+  .story-item-reverse {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    grid-template-areas: none;
+  }
+  
+  /* Force each story item: Image first, then content */
+  .story-item .story-visual,
+  .story-item-reverse .story-visual {
+    order: 1;
+    grid-area: unset;
+  }
+  
+  .story-item .story-content,
+  .story-item-reverse .story-content {
+    order: 2;
+    grid-area: unset;
+  }
+  
+  .story-visual {
+    min-height: 200px;
+  }
+  
+  .story-visual .ai-img-placeholder {
+    height: 200px;
+  }
+  
+  .story-image {
+    max-width: 300px;
+    padding: 12px;
+  }
+  
+  /* Reduce spacing for mobile */
+  .story-content h3 {
+    margin-bottom: 16px;
+    font-size: clamp(20px, 4vw, 24px);
+  }
+  
+  .story-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  
+  .story-content .footnote {
+    font-size: 0.8rem;
+    margin-top: 16px;
+  }
+}
+
+/* Dark mode styles for story rows */
+html.dark .story-content h3 {
+  color: #F5F7FA;
+}
+
+html.dark .story-content p {
+  color: #F5F7FA;
+}
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  background: rgba(245,247,250,0.8);
+  backdrop-filter: saturate(180%) blur(8px);
+  z-index: 50;
+  border-bottom: 1px solid #E5E8EF;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px;          /* match improved footer padding */
+}
+
+/* Logo in header */
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.logo-link:hover {
+  opacity: 0.8;
+  transform: scale(1.02); /* subtle hover growth */
+}
+
+.header-logo {
+  /* Larger header logo for better visibility */
+  display: block;
+  height: 50px;           /* increased from 40px */
+  max-height: 55px;      
+  width: auto;
+  max-width: 240px;       /* increased from 200px */
+  object-fit: cover;      /* crop if needed to fit within banner space */
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.08)); 
+}
+
+/* Dark mode logo styling adjustments */
+html.dark .header-logo {
+  filter: none; /* Remove drop-shadow in dark mode for cleaner look */
+}
+
+@media (max-width: 1024px) {
+  .header-logo {
+    height: 46px;         /* increased from 38px */
+    max-width: 220px;     /* increased from 180px */
+  }
+}
+
+@media (max-width: 768px) {
+  .header-logo {
+    height: 42px;         /* increased from 36px */
+    max-width: 200px;     /* increased from 160px */
+  }
+  .nav {
+    padding: 18px 8px;    /* match improved footer mobile padding */
+  }
+}
+
+@media (max-width: 480px) {
+  .header-logo {
+    height: 38px;         /* increased from 32px */
+    max-width: 180px;     /* increased from 140px */
+  }
+}
+
+/* Remove old brand text style (replaced by logo) */
+.nav .brand {
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ink);
+  display: none; /* Hidden - replaced by logo */
+}
+
+.nav-links {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--ink);
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.nav-links a:hover { background: var(--tea); }
+.nav-links a:focus, .nav-links a:focus-visible {
+  background: var(--tea);
+  color: var(--ink);
+  outline: none;
+}
+.nav-links a.active, .nav-links a[aria-current="page"] {
+  background: var(--tea);
+  color: var(--ink);
+}
+html.dark .nav-links a:hover {
+  background: #2A3544 !important;
+  color: #F5F7FA !important;
+}
+html.dark .nav-links a:focus, html.dark .nav-links a:focus-visible {
+  background: #2A3544 !important;
+  color: #F5F7FA !important;
+  outline: none;
+}
+html.dark .nav-links a.active, html.dark .nav-links a[aria-current="page"] {
+  background: #2A3544 !important;
+  color: #F5F7FA !important;
+}
+@media (max-width: 600px) {
+  .site-header { padding: 0 4px; }
+  .nav { flex-direction: column; gap: 8px; padding: 8px 4px; }
+  .nav-links { gap: 6px; }
+  .nav-links a { padding: 6px 8px; font-size: 0.98rem; }
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+  text-transform: none;
+  box-shadow: var(--shadow);
+}
+@media (max-width: 600px) {
+  .btn {
+    padding: 10px 12px;
+    font-size: 1rem;
+    border-radius: 12px;
+  }
+}
+.btn-primary {
+  background: var(--blue);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--moss); }
+.btn-secondary {
+  background: var(--tea);
+  color: var(--ink);
+}
+.btn-ghost {
+  background: transparent;
+  border-color: #E5E8EF;
+  color: var(--ink);
+}
+/* Ensure buttons are visible in light mode */
+html:not(.dark) .btn-primary {
+  background: var(--blue);
+  color: #fff;
+}
+html:not(.dark) .btn-secondary {
+  background: var(--tea);
+  color: var(--ink);
+}
+html:not(.dark) .btn-ghost {
+  background: rgba(245,247,250,0.85);
+  color: var(--ink);
+  border-color: #E5E8EF;
+}
+
+/* Sticky CTA */
+/* removed sticky contact button per request */
+/* Sticky CTA restored */
+.sticky-cta {
+  position: fixed;
+  right: 16px;
+  left: auto;
+  bottom: 16px;
+  margin-right: env(safe-area-inset-right, 8px);
+  margin-left: env(safe-area-inset-left, 8px);
+  background: var(--blue);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 999px;
+  text-decoration: none;
+  z-index: 100;
+  box-shadow: 0 8px 32px rgba(37,99,235,0.18);
+  font-family: Inter, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  border: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+  width: auto;
+  display: inline-block;
+  white-space: nowrap;
+}
+.sticky-cta:hover {
+  background: var(--moss);
+  box-shadow: 0 8px 24px rgba(51,58,47,0.28);
+  transform: scale(1.05);
+}
+@media (max-width: 600px) {
+  .sticky-cta {
+    right: 8px;
+    left: auto;
+    bottom: 8px;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    max-width: calc(100vw - 24px);
+    box-sizing: border-box;
+    margin-right: env(safe-area-inset-right, 8px);
+    margin-left: env(safe-area-inset-left, 8px);
+  }
+}
+/* Hide sticky CTA when contact section is in view */
+.sticky-cta.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Auto-hide functionality for sticky CTA */
+.sticky-cta.auto-hidden {
+  opacity: 0 !important;
+  pointer-events: none;
+  transition: opacity 1s ease-out !important;
+}
+/* Ensure sticky CTA is visible in light mode */
+html:not(.dark) .sticky-cta {
+  background: var(--blue);
+  color: #fff;
+  border: 2px solid #fff;
+  box-shadow: 0 8px 32px rgba(37,99,235,0.18);
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+.hero .hero-visual {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 40vh;
+  background: linear-gradient(180deg, rgba(37,99,235,0.08), rgba(235,237,223,0.6));
+  filter: blur(40px);
+}
+.hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Over visuals */
+.panel.visual {
+  min-height: 260px;
+  border-radius: 16px;
+  background: radial-gradient(60% 60% at 50% 40%, rgba(37,99,235,0.18), rgba(51,58,47,0.22)), var(--white);
+  box-shadow: var(--shadow);
+}
+
+/* Draft placeholders for images and logo */
+.draft, .ai-img-placeholder, .brand-logo-placeholder {
+  background: #000;
+  border: 2px solid #fff;
+  color: #fff;
+  position: relative;
+  min-height: 200px;
+  border-radius: 14px;
+}
+.draft::after, .ai-img-placeholder::after, .brand-logo-placeholder::after {
+  content: 'DRAFT';
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 700; letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.18);
+}
+.brand-logo-placeholder { width: 48px; height: 32px; min-height: 32px; border-radius: 6px; }
+.brand-logo-placeholder::after { font-size: 10px; }
+.bullets { padding-left: 18px; }
+.bullets li { margin: 6px 0; }
+
+/* Aanpak cards */
+.steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+@media (max-width: 960px) { .steps { grid-template-columns: 1fr; } }
+.step-card {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid #E5E8EF;
+}
+@media (max-width: 600px) {
+  .steps { gap: 10px; }
+  .step-card { padding: 12px; }
+}
+
+/* Impact */
+.impact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+@media (max-width: 960px) { .impact-grid { grid-template-columns: 1fr; } }
+.impact-item {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid #E5E8EF;
+}
+@media (max-width: 600px) {
+  .impact-grid { gap: 10px; }
+  .impact-item { padding: 12px; }
+}
+
+/* Logos */
+.logo-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.logo-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 84px;
+  background: var(--white);
+  border-radius: 16px;
+  border: 1px solid #E5E8EF;
+  box-shadow: var(--shadow);
+  text-transform: lowercase;
+}
+@media (max-width: 600px) {
+  .logo-row { gap: 10px; }
+  .logo-card { height: 60px; }
+}
+
+/* Contact */
+.contact-form { display: grid; gap: 12px; }
+.contact-form label { 
+  display: grid; 
+  gap: 6px;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+  font-weight: 500;
+}
+.contact-form label:hover {
+  color: var(--blue);
+  transform: translateX(2px);
+}
+.contact-form input, .contact-form textarea {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #E5E8EF;
+  background: #fff;
+  font: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: text;
+}
+.contact-form input:hover, .contact-form textarea:hover {
+  border-color: var(--blue);
+}
+.contact-form input:focus, .contact-form textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(0, 46, 82, 0.1);
+}
+.contact-form .hp { position: absolute; left: -9999px; }
+.form-note { font-size: 0.9rem; color: #5B6472; }
+
+/* Form note visibility fix for contact section */
+.section-contact .form-note {
+  color: rgba(255,255,255,0.8);
+}
+
+/* Ensure submit button uses site typography */
+.contact-form button[type="submit"] {
+  font-family: Inter, system-ui, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.contact-form button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 46, 82, 0.2);
+}
+
+.contact-form button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* Light mode contact section text color for better visibility */
+.section-contact h2,
+.section-contact p,
+.section-contact li,
+.section-contact a,
+.section-contact label {
+  color: #F5F7FA !important;
+}
+
+/* Ensure contact list links are visible */
+.section-contact .contact-list a {
+  color: #F5F7FA !important;
+  text-decoration: underline;
+}
+
+.section-contact .contact-list a:hover {
+  color: #FFFFFF !important;
+}
+
+/* Partners Section */
+.section-partners {
+  padding: 60px 0;
+  min-height: auto;
+  background: linear-gradient(rgba(240, 242, 230, 0.92), rgba(240, 242, 230, 0.92)), 
+              url('/public/5_Legal Pages.png') center/cover no-repeat;
+  background-attachment: fixed;
+  text-align: center;
+}
+
+html.dark .section-partners {
+  background: linear-gradient(135deg, rgba(11, 19, 32, 0.75), rgba(15, 26, 44, 0.65)), 
+              url('/public/5_Legal Pages.png') center/cover no-repeat;
+  background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+  .section-partners {
+    background-attachment: scroll;
+    padding: 40px 0;
+  }
+  html.dark .section-partners {
+    background-attachment: scroll;
+  }
+}
+
+.section-partners h2 {
+  color: var(--blue);
+  font-size: clamp(24px, 3vw, 32px);
+  margin-bottom: 32px;
+  font-weight: 700;
+  transition: transform 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+
+.section-partners h2:hover {
+  transform: scale(1.05);
+}
+
+html.dark .section-partners h2 {
+  color: #F5F7FA;
+}
+
+.partners-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.partner-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .partner-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+}
+
+.partner-image-wrapper {
+  flex-shrink: 0;
+  width: 300px;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.partner-image-wrapper:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .partner-image-wrapper {
+    width: 220px;
+  }
+}
+
+.partner-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.partner-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.partner-name {
+  color: var(--blue);
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  line-height: 1.3;
+  transition: transform 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+
+.partner-name:hover {
+  transform: scale(1.03);
+}
+
+html.dark .partner-name {
+  color: #F5F7FA;
+}
+
+.partner-description {
+  color: var(--ink);
+  font-size: clamp(15px, 1.6vw, 17px);
+  line-height: 1.7;
+  margin: 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.partner-description:hover {
+  transform: scale(1.02);
+  opacity: 0.9;
+}
+
+html.dark .partner-description {
+  color: #F5F7FA;
+}
+
+@media (max-width: 600px) {
+  .section-partners h2 {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+  
+  .partner-image-wrapper {
+    width: 180px;
+  }
+  
+  .partner-name {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .partner-description {
+    font-size: 0.95rem;
+  }
+}
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid #E5E8EF;
+  background: #fff;
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 24px;          /* increased padding for better user experience */
+}
+
+.footer-copyright {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;      /* slightly larger for better readability */
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.footer-copyright .copyright-symbol {
+  font-size: 1.15em;      /* proportionally larger */
+  margin-right: 2px;
+  letter-spacing: 0;
+}
+.footer-copyright .copyright-symbol #year {
+  margin-left: 2px;
+}
+.footer-copyright .copyright-text {
+  margin-left: 2px;
+}
+@media (max-width: 600px) {
+  .footer-inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;            /* increased gap for better spacing */
+    padding: 18px 8px;    /* better mobile padding */
+  }
+  .footer-copyright {
+    justify-content: center;
+    font-size: 1.05rem;   /* better mobile font size */
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+}
+
+.footer-actions { display:flex; gap:12px; align-items:center; }
+.footer-actions .btn { padding:8px 12px; border-radius:10px; }
+.footer-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  margin-left: 12px;
+}
+.footer-nav a:hover { text-decoration: underline; }
+
+/* Loader */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: rgba(51, 58, 47, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity .5s ease, visibility .5s ease;
+}
+.loader-inner {
+  width: min(920px, 94vw);
+  max-width: 1100px;
+  padding: 36px 48px;
+  border-radius: 16px;
+  background: transparent; /* keep inner transparent so big percent shows through */
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .loader-inner {
+    padding: 18px 8px;
+    min-width: 0;
+    width: 98vw;
+    max-width: 98vw;
+    border-radius: 10px;
+  }
+  .loader-message, #loader-msg {
+    font-size: 1.1rem !important;
+    margin-bottom: 8px;
+    white-space: normal;
+    padding: 0 2vw;
+  }
+  .loader-percent, .loader-big {
+    font-size: 5rem !important;
+    left: 50%;
+    top: 54%;
+    transform: translate(-50%,-50%);
+    min-width: 0;
+    max-width: 90vw;
+    line-height: 1;
+  }
+}
+.loader-bar { display: none; } /* hide small bar for the reference-like look */
+
+/* Big background percent (very large, centered, subtle)
+   The number should be visually dominant but very low contrast */
+.loader-percent, .loader-big {
+  position: absolute;
+  left: 50%; top: 50%; transform: translate(-50%,-46%);
+  font-weight: 900;
+  line-height: .78;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: clamp(5rem, 22vw, 28rem);
+  color: rgba(235, 237, 223, 0.08);
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  text-rendering: optimizeLegibility;
+}
+html.dark .loader-percent, html.dark .loader-big { color: rgba(235, 237, 223, 0.08); }
+
+/* Loader message: centered and above the big percent */
+.loader-message, #loader-msg {
+  position: relative;
+  z-index: 4;
+  font-weight: 700;
+  color: #F5F7FA;
+  text-align: center;
+  white-space: nowrap;
+  overflow: visible;
+  font-size: clamp(1rem, 2.4vw, 2rem);
+  letter-spacing: 0.01em;
+  margin: 0 0 12px 0;
+  transition: opacity 360ms cubic-bezier(.2,.9,.2,1), transform 360ms cubic-bezier(.2,.9,.2,1);
+}
+
+/* Full-screen background progress strip (subtle left→right fill) */
+.loader-bg {
+  position: absolute;
+  left: 0; top: 0; bottom: 0; width: 0%;
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.12), rgba(235, 237, 223, 0.08));
+  z-index: 0;
+  transition: width 160ms linear;
+}
+.loader-inner { position: relative; z-index: 3; }
+
+/* Reveal animations */
+.observe {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.observe.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* Section-specific themes with background images */
+.section-intro { 
+  background: linear-gradient(rgba(11, 19, 32, 0.3), rgba(11, 19, 32, 0.4)), 
+              url('/public/4_Mountain.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+.section-wathoe { 
+  background: linear-gradient(rgba(235, 237, 223, 0.7), rgba(235, 237, 223, 0.8)), 
+              url('/public/3_Forest .jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+.section-over { 
+  background: linear-gradient(rgba(235, 237, 223, 0.75), rgba(235, 237, 223, 0.85)), 
+              url('/public/2_Cityscape.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+.section-contact { 
+  background: linear-gradient(rgba(51, 58, 47, 0.5), rgba(51, 58, 47, 0.6)), 
+              url('/public/1_City at Dusk.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+
+/* Mobile: disable fixed attachment for better performance */
+@media (max-width: 768px) {
+  .section-intro,
+  .section-wathoe,
+  .section-over,
+  .section-contact {
+    background-attachment: scroll;
+  }
+}
+
+/* Intro section prominent logo */
+.intro-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.intro-logo {
+  /* make intro/logo on hero section larger and fill its container nicely */
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  max-height: 240px;
+  object-fit: contain; /* keep logo aspect while scaling up */
+  display: block;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.12));
+  transition: transform 0.3s ease;
+}
+
+.intro-logo:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 960px) {
+  .intro-logo {
+    max-width: 320px;
+    max-height: 180px;
+  }
+}
+
+@media (max-width: 600px) {
+  .intro-logo {
+    max-width: 220px;
+    max-height: 140px;
+  }
+}
+
+.section-wathoe {
+  background: linear-gradient(90deg, #EBEDDF 0%, #e6eeff 50%, #f7fafc 100%);
+  position: relative;
+  overflow: hidden;
+}
+.section-wathoe .container.grid.three {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 32px;
+}
+@media (max-width: 960px) {
+  .section-wathoe .container.grid.three {
+    grid-template-columns: 1fr;
+  }
+}
+.section-wathoe h2 {
+  font-family: "Space Grotesk", Inter, system-ui, Arial, sans-serif;
+  font-size: clamp(22px, 3vw, 34px);
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+
+/* Center align werkwijze item headers */
+.werkwijze-item h2 {
+  text-align: center;
+}
+
+/* Center align werkwijze item paragraphs */
+.werkwijze-item p {
+  text-align: center;
+}
+
+.section-wathoe ul, .section-wathoe p {
+  color: #333A2F;
+}
+.section-wathoe .ai-img-placeholder.draft {
+  min-height: 120px;
+  margin-top: 18px;
+}
+
+/* Werkwijze section images */
+.werkwijze-image {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  margin: 0 auto 20px auto; /* Center align images */
+  display: block;
+  border-radius: 8px;
+  padding: 12px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+/* Hover effects for werkwijze images */
+.werkwijze-image:hover {
+  transform: scale(1.05);
+}
+
+/* Scroll-triggered section animations (subtle, performant) */
+.section-intro, .section-wathoe, .section-over, .section-partners, .section-contact {
+  opacity: 0;
+  transform: translateY(60px) scale(0.98);
+  transition: opacity 0.8s cubic-bezier(.2,.8,.2,1), transform 0.8s cubic-bezier(.2,.8,.2,1);
+}
+.section-intro.in-view, .section-wathoe.in-view, .section-over.in-view, .section-partners.in-view, .section-contact.in-view {
+  opacity: 1;
+  transform: none;
+}
+/* Light mode in-view states maintain background images */
+.section-intro.in-view {
+  background: linear-gradient(rgba(11, 19, 32, 0.3), rgba(11, 19, 32, 0.4)), 
+              url('/public/4_Mountain.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+.section-wathoe.in-view {
+  background: linear-gradient(rgba(235, 237, 223, 0.7), rgba(235, 237, 223, 0.8)), 
+              url('/public/3_Forest .jpg') center/cover no-repeat;
+  background-attachment: fixed;
+  box-shadow: 0 8px 32px rgba(37,99,235,0.08);
+}
+.section-over.in-view {
+  background: linear-gradient(rgba(235, 237, 223, 0.75), rgba(235, 237, 223, 0.85)), 
+              url('/public/2_Cityscape.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+.section-partners.in-view {
+  background: linear-gradient(rgba(240, 242, 230, 0.92), rgba(240, 242, 230, 0.92)), 
+              url('/public/5_Legal Pages.png') center/cover no-repeat;
+  background-attachment: fixed;
+}
+.section-contact.in-view {
+  background: linear-gradient(rgba(51, 58, 47, 0.5), rgba(51, 58, 47, 0.6)), 
+              url('/public/1_City at Dusk.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+
+/* Decorative overlays removed for cleaner look */
+.section>*,.section .container{ position:relative; z-index:1; }
+
+/* Dark mode */
+html.dark body {
+  background: #0B1320;
+  color: #F5F7FA;
+}
+/* Ensure the app wrapper follows dark background */
+html.dark #page-wrapper { background: #0B1320; }
+
+/* Dark mode section backgrounds with darker overlays */
+html.dark .section { color: #F5F7FA; }
+
+/* Dark mode: remove background and use V4 logo */
+html.dark .intro-logo-container {
+  background: none;
+  border-radius: 16px;
+  padding: 0;
+  backdrop-filter: none;
+  transition: all 0.3s ease;
+}
+
+html.dark .intro-logo-container:hover {
+  background: none;
+}
+
+/* Dark mode logo swap for intro */
+html.dark .intro-logo {
+  content: url('/public/DHAIN Logo_V4_Transparent_Dark Mode_cropped.png');
+  filter: none; /* Remove drop-shadow in dark mode */
+}
+html.dark .section-intro { 
+  background: linear-gradient(rgba(11, 19, 32, 0.7), rgba(11, 19, 32, 0.8)), 
+              url('/public/4_Mountain.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+html.dark .section-wathoe { 
+  background: linear-gradient(rgba(11, 19, 32, 0.65), rgba(15, 26, 44, 0.75)), 
+              url('/public/3_Forest .jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+html.dark .section-over { 
+  background: linear-gradient(rgba(11, 19, 32, 0.7), rgba(11, 19, 32, 0.8)), 
+              url('/public/2_Cityscape.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+html.dark .section-contact { 
+  background: linear-gradient(rgba(11, 19, 32, 0.6), rgba(15, 26, 44, 0.7)), 
+              url('/public/1_City at Dusk.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+/* Ensure in-view states maintain background images */
+html.dark .section-intro.in-view { 
+  background: linear-gradient(rgba(11, 19, 32, 0.7), rgba(11, 19, 32, 0.8)), 
+              url('/public/4_Mountain.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+html.dark .section-wathoe.in-view { 
+  background: linear-gradient(rgba(11, 19, 32, 0.65), rgba(15, 26, 44, 0.75)), 
+              url('/public/3_Forest .jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+html.dark .section-over.in-view { 
+  background: linear-gradient(rgba(11, 19, 32, 0.7), rgba(11, 19, 32, 0.8)), 
+              url('/public/2_Cityscape.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+html.dark .section-partners.in-view {
+  background: linear-gradient(135deg, rgba(11, 19, 32, 0.75), rgba(15, 26, 44, 0.65)), 
+              url('/public/5_Legal Pages.png') center/cover no-repeat;
+  background-attachment: fixed;
+}
+html.dark .section-contact.in-view { 
+  background: linear-gradient(rgba(11, 19, 32, 0.6), rgba(15, 26, 44, 0.7)), 
+              url('/public/1_City at Dusk.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+
+/* Mobile dark mode: disable fixed attachment */
+@media (max-width: 768px) {
+  html.dark .section-intro,
+  html.dark .section-wathoe,
+  html.dark .section-over,
+  html.dark .section-contact,
+  html.dark .section-intro.in-view,
+  html.dark .section-wathoe.in-view,
+  html.dark .section-over.in-view,
+  html.dark .section-partners.in-view,
+  html.dark .section-contact.in-view {
+    background-attachment: scroll;
+  }
+}
+
+/* Dark mode decorative overlays removed for cleaner look */
+/* Improve contrast of text inside wathoe section on dark */
+html.dark .section-wathoe h2 { color: #F5F7FA; }
+html.dark .section-wathoe p,
+html.dark .section-wathoe ul,
+html.dark .section-wathoe li { color: #F5F7FA; }
+
+/* Improve contrast of Over DHAIN header in dark mode */
+html.dark #overdhain h2 { color: #F5F7FA; }
+
+html.dark .site-header {
+  background: #0B1320;
+  border-color: #333A2F;
+}
+
+/* Dark mode: remove background from header logo for cleaner look */
+html.dark .logo-link {
+  background: none;
+  border: none;
+  padding: 0;
+  backdrop-filter: none;
+  transition: all 0.2s ease;
+}
+
+html.dark .logo-link:hover {
+  background: none;
+  border: none;
+  transform: scale(1.02);
+}
+html.dark .nav-links a {
+  color: #F5F7FA;
+  background: transparent;
+}
+html.dark .nav-links a:hover {
+  background: #1A2333;
+  color: #F5F7FA;
+}
+html.dark .nav-links a:focus, html.dark .nav-links a:focus-visible {
+  background: #1A2333;
+  color: #F5F7FA;
+  outline: none;
+}
+html.dark .nav-links a.active, html.dark .nav-links a[aria-current="page"] {
+  background: #1A2333;
+  color: #F5F7FA;
+}
+html.dark .panel.visual,
+html.dark .step-card,
+html.dark .impact-item,
+html.dark .logo-card,
+html.dark .site-footer,
+html.dark .contact-form input,
+html.dark .contact-form textarea {
+  background: #333A2F;
+  color: #F5F7FA;
+  border-color: #002E52;
+}
+html.dark .contact-form input:hover,
+html.dark .contact-form textarea:hover {
+  border-color: #4A90E2;
+}
+html.dark .contact-form input:focus,
+html.dark .contact-form textarea:focus {
+  border-color: #4A90E2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+html.dark .contact-form label:hover {
+  color: #4A90E2;
+}
+html.dark .footer-nav a {
+  color: #002E52;
+}
+html.dark .hero .hero-visual {
+  background: linear-gradient(180deg, #002E52 12%, #EBEDDF 8%);
+}
+html.dark .btn-primary {
+  background: #002E52;
+  color: #F5F7FA;
+}
+html.dark .btn-primary:hover {
+  background: #EBEDDF;
+  color: #333A2F;
+}
+html.dark .btn-secondary {
+  background: #EBEDDF;
+  color: #333A2F;
+}
+html.dark .btn-ghost {
+  background: #333A2F;
+  color: #EBEDDF;
+  border-color: #002E52;
+}
+html.dark .btn-ghost:hover {
+  background: #002E52;
+  color: #F5F7FA;
+}
+
+/* Always start in light mode: we’ll reset theme on navigation */
+
+/* Header & controls in dark mode */
+html.dark .nav .brand {
+  color: #F5F7FA;
+}
+html.dark .btn-ghost {
+  color: #F5F7FA;
+  border-color: rgba(255,255,255,0.08);
+}
+html.dark #theme-toggle[aria-label] {
+  /* ensure the theme toggle (button) text is visible */
+  color: #F5F7FA;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .observe { transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* Backward compatible classes */
+#loader.hidden { opacity:0; visibility:hidden; }
+
+/* Immediately hide loader when skipLoader flag is set */
+html[data-skip-loader="1"] #loader {
+  display: none !important;
+}
+
+/* Compatibility: loader-percent handled above. */
+
+/* Brand HAI pijltje */
+.brand-hai { position:relative; }
+.brand-hai .hai-arrow {
+  position:absolute; right:-.2rem; top:-.5rem; font-style:normal; font-weight:700;
+  transform: rotate(90deg);
+  font-size:.8em; opacity:.7;
+}
+
+/* Section tweaks */
+#visie-missie .panel.visual,
+#over .panel.visual { background:linear-gradient(135deg,#111 0%, #1a1a1a 100%); border-radius:1rem; }
+
+/* Footer: default (light mode) */
+.site-footer { background: #fff; color: var(--ink); }
+.site-footer a { color: var(--ink); text-decoration:underline; }
+
+/* Footer contrast in dark mode */
+html.dark .site-footer { background:#0e0e0e; color:#bbb; }
+html.dark .site-footer a { color:#fff; text-decoration:underline; }
+
+/* Ensure footer controls are clearly visible in dark mode */
+html.dark .site-footer .footer-actions .btn,
+html.dark .site-footer .footer-actions .btn-ghost {
+  color: #F5F7FA;
+  border-color: rgba(255,255,255,0.08);
+}
+
+/* Override text-transform for legal page back buttons */
+.legal-banner .btn {
+  text-transform: none;
+}
+
+/* Ensure legal page headers are bold and properly styled */
+.legal-banner h1,
+.legal-banner h2,
+.legal-banner h3 {
+  font-weight: 700;
+  color: var(--ink);
+  transition: color 0.2s ease, transform 0.2s ease;
+  cursor: default;
+}
+
+.legal-banner h1:hover,
+.legal-banner h2:hover,
+.legal-banner h3:hover {
+  color: var(--blue);
+  transform: translateX(2px);
+}
+
+.legal-banner p {
+  transition: color 0.2s ease, transform 0.2s ease;
+  cursor: default;
+}
+
+.legal-banner p:hover {
+  color: var(--blue);
+  transform: translateX(2px);
+}
+
+.legal-banner a:not(.btn) {
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+}
+
+.legal-banner a:not(.btn):hover {
+  color: var(--moss);
+  text-decoration-color: var(--moss);
+}
+
+html.dark .legal-banner h1,
+html.dark .legal-banner h2,
+html.dark .legal-banner h3 {
+  color: #F5F7FA;
+}
+
+html.dark .legal-banner h1:hover,
+html.dark .legal-banner h2:hover,
+html.dark .legal-banner h3:hover {
+  color: #4A90E2;
+}
+
+html.dark .legal-banner p:hover {
+  color: #4A90E2;
+}
+
+html.dark .legal-banner a:not(.btn):hover {
+  color: #4A90E2;
+  text-decoration-color: #4A90E2;
+}
+
+body { overflow-x:hidden; }
+
+/* Layout wrapper to keep footer at the bottom on short pages */
+#page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--gray); /* ensure no white flash during transitions */
+}
+/* Only push footer when it's the direct child of page wrapper (legal pages too) */
+#page-wrapper > .site-footer { margin-top: auto; }
+
+/* Ensure main content grows to fill space above footer */
+#page-wrapper > main,
+#page-wrapper > section:last-of-type {
+  flex-grow: 1;
+}
+
+/* Dark mode page wrapper background */
+html.dark #page-wrapper {
+  background: #0B1320;
+}
+
+/* While the loader element exists, keep the rest of the page invisible and inert.
+   When the loader receives the `.hidden` class we fade the page content back in,
+   then the loader is removed from the DOM by the script. */
+#loader ~ * {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  transition: opacity .45s ease, visibility 0s linear .45s;
+}
+
+/* When loader is hiding, reveal content with a short fade-in */
+#loader.hidden ~ * {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+/* Prevent scrolling while loader is present */
+#loader { touch-action: none; }
+html, body { overscroll-behavior: none; }
+
+/* Footer button in light mode: ensure it uses dark ink */
+html:not(.dark) .site-footer .footer-actions .btn,
+html:not(.dark) .site-footer .footer-actions .btn-ghost {
+  color: var(--ink);
+  border-color: #E5E8EF;
+}
+
+/* Over DHAIN tabs (folder-style) */
+#overdhain .over-tabs {
+  display: flex;
+  gap: 8px;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+#overdhain .over-tab {
+  position: relative;
+  border: 1px solid #CBD5E1;
+  border-bottom: none;
+  background: #fff;
+  color: var(--ink);
+  padding: 10px 18px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 -2px 0 rgba(0,0,0,0.02) inset;
+  transition: transform .2s, background .2s, color .2s, box-shadow .2s;
+}
+#overdhain .over-tab:hover,
+#overdhain .over-tab[aria-selected="true"] {
+  background: var(--tea);
+  color: var(--ink);
+  box-shadow: 0 2px 0 var(--tea) inset;
+  z-index: 2;
+}
+#overdhain .over-tab[aria-selected="true"] {
+  font-weight: 700;
+}
+html.dark #overdhain .over-tab {
+  background: #1A2333;
+  color: #F5F7FA;
+  border-color: #304055;
+  box-shadow: 0 -2px 0 rgba(37,99,235,0.2) inset;
+}
+html.dark #overdhain .over-tab:hover,
+html.dark #overdhain .over-tab[aria-selected="true"] {
+  background: #2A3544;
+  color: #F5F7FA;
+  box-shadow: 0 2px 0 #2A3544 inset;
+}
+
+#overdhain .over-panels {
+  position: relative;
+  background: #fff;
+  border: 1px solid #CBD5E1;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 20px;
+  overflow: hidden;
+}
+html.dark #overdhain .over-panels {
+  background: #0F1A2C;
+  border-color: #304055;
+}
+
+#overdhain .panel { opacity: 0; transform: translateY(8px); transition: opacity .24s ease, transform .24s ease; }
+#overdhain .panel.active { opacity: 1; transform: none; }
+
+/* Split layout for Visie & Missie */
+#overdhain .split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+#overdhain .card {
+  background: #fff;
+  border: 1px solid #E5E8EF;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+html.dark #overdhain .card {
+  background: #1A2333;
+  border-color: #304055;
+}
+#overdhain .card h3 { margin-top: 0; color: var(--blue); }
+html.dark #overdhain .card h3 { color: #7CC0FF; }
+
+@media (max-width: 900px) {
+  #overdhain .split-grid { grid-template-columns: 1fr; }
+}
+
+/* Keep original image placeholder spacing inside over panel */
+#overdhain .panel.over .ai-img-placeholder { margin: 12px 0 18px; min-height: 160px; }
+
+/* Subtle slide between panels */
+#overdhain .panel[data-panel] { position: relative; }
+
+/* Interactive text hover effects for modern feel */
+/* Headers hover effects */
+.section-intro h1,
+.section-intro h2,
+.section-wathoe h2,
+#overdhain h2,
+.section-contact h2,
+.werkwijze-item h3,
+#overdhain .card h3,
+.story-content h3 {
+  transition: transform 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+
+.section-intro h1:hover,
+.section-intro h2:hover,
+.section-wathoe h2:hover,
+#overdhain h2:hover,
+.section-contact h2:hover,
+.werkwijze-item h3:hover,
+#overdhain .card h3:hover,
+.story-content h3:hover {
+  transform: scale(1.05);
+}
+
+/* Paragraph text hover effects */
+.section-intro p,
+.section-wathoe p,
+.werkwijze-item p,
+#overdhain .card p,
+.section-contact p,
+.story-content p {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.section-intro p:hover,
+.section-wathoe p:hover,
+.werkwijze-item p:hover,
+#overdhain .card p:hover,
+.section-contact p:hover,
+.story-content p:hover {
+  transform: scale(1.02);
+  opacity: 0.9;
+}
+
+/* List items hover effects */
+.section-contact ul li {
+  transition: transform 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+
+.section-contact ul li:hover {
+  transform: scale(1.03);
+}
+
+/* Special hover effect for intro tagline */
+.section-intro .tagline {
+  transition: transform 0.2s ease, letter-spacing 0.2s ease;
+}
+
+.section-intro .tagline:hover {
+  transform: scale(1.03);
+  letter-spacing: 0.5px;
+}
+

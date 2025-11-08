@@ -1455,6 +1455,10 @@ html.dark .section-wathoe h2 { color: #F5F7FA; }
 html.dark .section-wathoe p,
 html.dark .section-wathoe ul,
 html.dark .section-wathoe li { color: #F5F7FA; }
+
+/* Improve contrast of Over DHAIN header in dark mode */
+html.dark #overdhain h2 { color: #F5F7FA; }
+
 html.dark .site-header {
   background: #0B1320;
   border-color: #333A2F;

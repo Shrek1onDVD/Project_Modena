@@ -1611,12 +1611,57 @@ html.dark .site-footer .footer-actions .btn-ghost {
 .legal-banner h3 {
   font-weight: 700;
   color: var(--ink);
+  transition: color 0.2s ease, transform 0.2s ease;
+  cursor: default;
+}
+
+.legal-banner h1:hover,
+.legal-banner h2:hover,
+.legal-banner h3:hover {
+  color: var(--blue);
+  transform: translateX(2px);
+}
+
+.legal-banner p {
+  transition: color 0.2s ease, transform 0.2s ease;
+  cursor: default;
+}
+
+.legal-banner p:hover {
+  color: var(--blue);
+  transform: translateX(2px);
+}
+
+.legal-banner a:not(.btn) {
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+}
+
+.legal-banner a:not(.btn):hover {
+  color: var(--moss);
+  text-decoration-color: var(--moss);
 }
 
 html.dark .legal-banner h1,
 html.dark .legal-banner h2,
 html.dark .legal-banner h3 {
   color: #F5F7FA;
+}
+
+html.dark .legal-banner h1:hover,
+html.dark .legal-banner h2:hover,
+html.dark .legal-banner h3:hover {
+  color: #4A90E2;
+}
+
+html.dark .legal-banner p:hover {
+  color: #4A90E2;
+}
+
+html.dark .legal-banner a:not(.btn):hover {
+  color: #4A90E2;
+  text-decoration-color: #4A90E2;
 }
 
 body { overflow-x:hidden; }

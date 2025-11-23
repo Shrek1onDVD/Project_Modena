@@ -47,14 +47,30 @@ Kenmerken:
    of gebruik `Ctrl + `` (accent-grave, links van de 1).
 
 3. Start een lokale webserver:
-   python3 -m http.server 3000
+   ```bash
+   python3 -m http.server 8000
+   ```
+   
+   Als port 8000 bezet is, probeer een andere port:
+   ```bash
+   python3 -m http.server 8080
+   # of
+   python3 -m http.server 5500
+   ```
 
 4. Codespaces toont:
-   “Your application is running on port 3000”
+   "Your application is running on port 8000" (of de door jou gekozen port)
 
    Klik **Open in Browser** om de website te bekijken.
 
-5. Optioneel: zet port visibility op Private zodat alleen jij de site kunt zien.
+5. **Website opnieuw openen** (als je de browser tab hebt gesloten):
+   - **Optie 1:** Ga naar `http://localhost:8000` in een nieuwe tab
+   - **Optie 2:** Gebruik de PORTS tab onderaan VS Code → klik op de 🌐 naast port 8000
+   - **Optie 3:** In terminal: `$BROWSER http://localhost:8000`
+   
+   💡 De server blijft draaien ook als je browser tabs sluit!
+
+6. Optioneel: zet port visibility op Private zodat alleen jij de site kunt zien.
 
 ---
 
@@ -62,9 +78,24 @@ Kenmerken:
 
 1. Installeer Python via https://www.python.org/downloads/  
 2. Open een terminal (of CTRL+SHIFT+C) in de projectmap en typ:
+   ```bash
+   python3 -m http.server 8000
+   ```
+   
+   Als je een andere port wilt gebruiken:
+   ```bash
    python3 -m http.server 5500
+   # of elke andere beschikbare port
+   ```
+
 3. Open je browser en ga naar:
-   http://localhost:5500
+   - http://localhost:8000 (voor port 8000)
+   - http://localhost:5500 (voor port 5500)
+   - Of de port die je hebt gekozen
+
+4. **Website opnieuw openen** na sluiten browser tab:
+   - Gewoon opnieuw naar `http://localhost:POORT` in je browser
+   - De server blijft draaien in de achtergrond!
 
 De site draait nu lokaal, zonder afhankelijkheden.
 

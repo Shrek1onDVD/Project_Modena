@@ -897,6 +897,20 @@ html:not(.dark) .sticky-cta {
   display: block;
 }
 
+/* Inline LinkedIn icon inside contact bullet */
+.contact-list .linkedin-logo-inline {
+  height: 16px;
+  width: auto;
+  vertical-align: text-bottom;
+  margin-left: 4px;
+  display: inline;
+}
+
+/* Ensure bullet stays single line */
+.contact-list .linkedin-list-item a {
+  display: inline;
+}
+
 /* Partners Section */
 .section-partners {
   padding: 60px 0;
